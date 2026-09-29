@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cbyg5wkby2ben"]
+
+[node name="KeyMap" type="Panel" unique_id=224156972]
+custom_minimum_size = Vector2(0, 50)
+
+[node name="Label" type="Label" parent="." unique_id=1964910274]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_right = -411.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Input: "
+vertical_alignment = 1
+
+[node name="LineEdit" type="Button" parent="." unique_id=1023776688]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 696.0
+offset_top = 8.0
+offset_right = -32.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Input"
