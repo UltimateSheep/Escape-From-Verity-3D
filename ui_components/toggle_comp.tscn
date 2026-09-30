@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://idipco1bqdyh"]
+
+[ext_resource type="Script" uid="uid://4n87telumy5d" path="res://scripts/ui_components/ToggleComp.cs" id="1_ib22d"]
+
+[node name="Toggle" type="Panel" unique_id=1241573543 node_paths=PackedStringArray("checkButton", "Label")]
+custom_minimum_size = Vector2(0, 50)
+script = ExtResource("1_ib22d")
+checkButton = NodePath("CheckButton")
+Label = NodePath("Label")
+
+[node name="Label" type="Label" parent="." unique_id=875842308]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_right = -411.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Input: "
+vertical_alignment = 1
+
+[node name="CheckButton" type="CheckButton" parent="." unique_id=701853937]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 739.0
+offset_right = -38.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2

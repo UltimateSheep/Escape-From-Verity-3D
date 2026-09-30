@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://c4nupknjvecd5"]
+
+[ext_resource type="Script" uid="uid://cmdyvvduqlr1i" path="res://scripts/ui_components/DropDownComp.cs" id="1_g42ag"]
+
+[node name="DropDown" type="Panel" unique_id=159445147 node_paths=PackedStringArray("optionButton", "Label")]
+custom_minimum_size = Vector2(0, 50)
+script = ExtResource("1_g42ag")
+optionButton = NodePath("OptionButton")
+Label = NodePath("Label")
+
+[node name="Label" type="Label" parent="." unique_id=910449136]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_right = -411.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Input: "
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="." unique_id=280199886]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 467.0
+offset_top = 8.0
+offset_right = -32.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+search_bar_enabled = true

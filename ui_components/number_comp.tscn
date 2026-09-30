@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://ckctfy7yt665g"]
+
+[ext_resource type="Script" uid="uid://dr5vdxek5nx6o" path="res://scripts/ui_components/NumberComp.cs" id="1_byw60"]
+
+[node name="NumberComp" type="Panel" unique_id=699319335 node_paths=PackedStringArray("NumberInput", "Label")]
+custom_minimum_size = Vector2(0, 50)
+script = ExtResource("1_byw60")
+NumberInput = NodePath("LineEdit")
+Label = NodePath("Label")
+
+[node name="Label" type="Label" parent="." unique_id=537218091]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_right = -411.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Input: "
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="." unique_id=773995871]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 696.0
+offset_top = 8.0
+offset_right = -32.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "0-9999"
+alignment = 1
+clear_button_enabled = true

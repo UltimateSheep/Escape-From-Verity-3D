@@ -2,6 +2,13 @@
 
 [ext_resource type="Theme" uid="uid://b3kq74llqlv3x" path="res://addons/MinimalUI4/MinimalUI.tres" id="1_bqqt6"]
 [ext_resource type="ArrayMesh" uid="uid://crplphq2xt01g" path="res://models/blender/verity_Sphere_001.res" id="1_ekxnf"]
+[ext_resource type="Script" uid="uid://clpimgt1m57us" path="res://scripts/ui_scripts/BackgroundControl.cs" id="1_tbmy8"]
+[ext_resource type="Script" uid="uid://c3xkdgv5x57n3" path="res://scripts/ui_scripts/SettingsContainer.cs" id="3_jk1qb"]
+[ext_resource type="Script" uid="uid://dldtioi4ccn3o" path="res://scripts/ui_scripts/MenuContainer.cs" id="3_oa1go"]
+[ext_resource type="PackedScene" uid="uid://r3g2wrgl17j0" path="res://ui_components/settings_template.tscn" id="4_8ln24"]
+[ext_resource type="Script" uid="uid://cr55alngx55xr" path="res://scripts/ui_scripts/MenuBack.cs" id="4_tbmy8"]
+[ext_resource type="Script" uid="uid://c7egjmv027kmi" path="res://scripts/ui_scripts/LocalHostUI.cs" id="7_jk1qb"]
+[ext_resource type="PackedScene" uid="uid://or3bnb18qyam" path="res://ui_components/server_button_template.tscn" id="7_tbmy8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vue75"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -27,7 +34,7 @@ point_count = 3
 _data = [Vector2(0, 0), 0.0, 0.910624, 0, 1, Vector2(0.36395758, 0.33142853), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.0511429, 0.0, 1, 0]
 point_count = 3
 
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_0lakp"]
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_jk1qb"]
 curve_x = SubResource("Curve_ktbn5")
 curve_y = SubResource("Curve_jisn4")
 curve_z = SubResource("Curve_05ong")
@@ -42,11 +49,13 @@ ssao_detail = 1.01
 sdfgi_use_occlusion = true
 glow_enabled = true
 adjustment_enabled = true
-adjustment_color_correction = SubResource("CurveXYZTexture_0lakp")
+adjustment_color_correction = SubResource("CurveXYZTexture_jk1qb")
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_qcpy7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ekrci"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qseaw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_l6cm7"]
 friction = 0.55
@@ -101,7 +110,20 @@ fov = 51.2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2017727662]
 
-[node name="MenuContainer" type="TabContainer" parent="CanvasLayer" unique_id=271177839]
+[node name="BackgroundControl" type="Control" parent="CanvasLayer" unique_id=1689313970]
+z_index = -1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("1_bqqt6")
+script = ExtResource("1_tbmy8")
+
+[node name="MenuContainer" type="TabContainer" parent="CanvasLayer/BackgroundControl" unique_id=271177839 node_paths=PackedStringArray("mainButtons", "quitButton")]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -109,10 +131,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ekrci")
 tab_alignment = 1
-current_tab = 1
+current_tab = 2
 tabs_visible = false
+script = ExtResource("3_oa1go")
+mainButtons = [NodePath("Main/VBoxContainer/Play"), NodePath("Main/VBoxContainer/Multiplayer"), NodePath("Main/VBoxContainer/Settings")]
+quitButton = NodePath("Main/VBoxContainer/Quit")
 
-[node name="Main" type="MarginContainer" parent="CanvasLayer/MenuContainer" unique_id=1751534265]
+[node name="Main" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer" unique_id=1751534265]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 100
@@ -121,32 +146,33 @@ theme_override_constants/margin_right = 600
 theme_override_constants/margin_bottom = 100
 metadata/_tab_index = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MenuContainer/Main" unique_id=934416106]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Main" unique_id=934416106]
 layout_mode = 2
 theme = ExtResource("1_bqqt6")
 theme_override_constants/separation = 5
 
-[node name="Play" type="Button" parent="CanvasLayer/MenuContainer/Main/VBoxContainer" unique_id=997974762]
+[node name="Play" type="Button" parent="CanvasLayer/BackgroundControl/MenuContainer/Main/VBoxContainer" unique_id=997974762]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Play"
 
-[node name="Button2" type="Button" parent="CanvasLayer/MenuContainer/Main/VBoxContainer" unique_id=1221223426]
+[node name="Multiplayer" type="Button" parent="CanvasLayer/BackgroundControl/MenuContainer/Main/VBoxContainer" unique_id=1221223426]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-text = "Local Multiplayer"
+text = "Multiplayer"
 
-[node name="Button3" type="Button" parent="CanvasLayer/MenuContainer/Main/VBoxContainer" unique_id=1745969900]
+[node name="Settings" type="Button" parent="CanvasLayer/BackgroundControl/MenuContainer/Main/VBoxContainer" unique_id=1745969900]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Settings"
 
-[node name="Button4" type="Button" parent="CanvasLayer/MenuContainer/Main/VBoxContainer" unique_id=974001014]
+[node name="Quit" type="Button" parent="CanvasLayer/BackgroundControl/MenuContainer/Main/VBoxContainer" unique_id=974001014]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Quit"
 
-[node name="Settings" type="MarginContainer" parent="CanvasLayer/MenuContainer" unique_id=670326238]
+[node name="Settings" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer" unique_id=670326238]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 150
 theme_override_constants/margin_top = 100
@@ -154,195 +180,378 @@ theme_override_constants/margin_right = 150
 theme_override_constants/margin_bottom = 100
 metadata/_tab_index = 1
 
-[node name="TabContainer" type="TabContainer" parent="CanvasLayer/MenuContainer/Settings" unique_id=437603149]
+[node name="Panel" type="Panel" parent="CanvasLayer/BackgroundControl/MenuContainer/Settings" unique_id=297187454]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qseaw")
+
+[node name="MenuBack" type="Button" parent="CanvasLayer/BackgroundControl/MenuContainer/Settings/Panel" unique_id=125349409 node_paths=PackedStringArray("menuContainer")]
+layout_mode = 0
+offset_left = 9.0
+offset_top = -36.0
+offset_right = 86.0
+offset_bottom = -9.0
+text = "Back
+"
+script = ExtResource("4_tbmy8")
+menuContainer = NodePath("../../..")
+
+[node name="SettingsContainer" type="TabContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Settings" unique_id=437603149]
 layout_mode = 2
 current_tab = 0
+tab_0/title = "General"
+script = ExtResource("3_jk1qb")
 
-[node name="General" type="MarginContainer" parent="CanvasLayer/MenuContainer/Settings/TabContainer" unique_id=836783175]
+[node name="general" parent="CanvasLayer/BackgroundControl/MenuContainer/Settings/SettingsContainer" unique_id=687638479 instance=ExtResource("4_8ln24")]
+layout_mode = 2
+
+[node name="Multiplayer" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer" unique_id=54908151]
+layout_mode = 2
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 150
+theme_override_constants/margin_bottom = 100
+metadata/_tab_index = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer" unique_id=573137498]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qseaw")
+
+[node name="MenuBack" type="Button" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/Panel" unique_id=667044899 node_paths=PackedStringArray("menuContainer")]
+layout_mode = 0
+offset_left = 9.0
+offset_top = -36.0
+offset_right = 86.0
+offset_bottom = -9.0
+text = "Back
+"
+script = ExtResource("4_tbmy8")
+menuContainer = NodePath("../../..")
+
+[node name="Refresh" type="Button" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/Panel/MenuBack" unique_id=1085989027]
+layout_mode = 0
+offset_left = 84.0
+offset_right = 197.0
+offset_bottom = 27.0
+text = "Refresh"
+
+[node name="SettingsContainer" type="TabContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer" unique_id=1083680008]
+layout_mode = 2
+current_tab = 1
+
+[node name="Online" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer" unique_id=1207054799]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Online" unique_id=1650784291]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Online/Panel" unique_id=1971526760]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -433.5
+offset_top = -11.5
+offset_right = 433.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Sorry, no dedicated server is available and implemented right now. 
+Only LAN connection is supported as of 30/09/26.
+
+If you want to play multiplayer with your friends: You can use 3rd party software like
+Hamachi, RadminVPN, ZeroTier etc."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Local" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer" unique_id=325150283 node_paths=PackedStringArray("RefreshButton", "ServerBrowser", "HostButton", "NameEdit", "PortEdit", "MaxPlayerEdit", "PasswordEdit", "DifficultyEdit", "JoinButton", "JoinNameEdit", "JoinPortEdit", "JoinPasswordEdit")]
+layout_mode = 2
+script = ExtResource("7_jk1qb")
+RefreshButton = NodePath("../../Panel/MenuBack/Refresh")
+ServerBrowser = NodePath("MarginContainer/HSplitContainer/ServerBrowser/ScrollContainer/VBoxContainer")
+HostButton = NodePath("MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/ButtonField/Button")
+NameEdit = NodePath("MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/Name/LineEdit")
+PortEdit = NodePath("MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/Port/LineEdit")
+MaxPlayerEdit = NodePath("MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/MaxPlayer/LineEdit")
+PasswordEdit = NodePath("MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/Password/LineEdit")
+DifficultyEdit = NodePath("MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/Difficulty/LineEdit")
+JoinButton = NodePath("MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/ButtonField/Button")
+JoinNameEdit = NodePath("MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/Name/LineEdit")
+JoinPortEdit = NodePath("MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/Port/LineEdit")
+JoinPasswordEdit = NodePath("MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/Password/LineEdit")
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local" unique_id=154632637]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
-metadata/_tab_index = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/MenuContainer/Settings/TabContainer/General" unique_id=51758984]
+[node name="HSplitContainer" type="HSplitContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer" unique_id=665026104]
+layout_mode = 2
+drag_area_highlight_in_editor = true
+
+[node name="ServerBrowser" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer" unique_id=654854742]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+offset_transform_visual_only = false
+theme_override_constants/margin_right = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/ServerBrowser" unique_id=1712487278]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MenuContainer/Settings/TabContainer/General/ScrollContainer" unique_id=91596894]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/ServerBrowser/ScrollContainer" unique_id=1101454024]
+custom_maximum_size = Vector2(500, -1)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+offset_transform_enabled = true
 theme_override_constants/separation = 15
 
-[node name="Slider" type="Panel" parent="CanvasLayer/MenuContainer/Settings/TabContainer/General/ScrollContainer/VBoxContainer" unique_id=1542375106]
-custom_minimum_size = Vector2(0, 50)
+[node name="ServerButtonTemplate" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/ServerBrowser/ScrollContainer/VBoxContainer" unique_id=1170537785 instance=ExtResource("7_tbmy8")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/MenuContainer/Settings/TabContainer/General/ScrollContainer/VBoxContainer/Slider" unique_id=831246156]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 17.0
-offset_right = -411.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Input: "
-vertical_alignment = 1
+[node name="HostAndInfo" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer" unique_id=436525117]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
-[node name="Label2" type="Label" parent="CanvasLayer/MenuContainer/Settings/TabContainer/General/ScrollContainer/VBoxContainer/Slider" unique_id=224300452]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 755.0
-offset_right = -9.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo" unique_id=548297431]
+layout_mode = 2
+split_offsets = PackedInt32Array(150)
+drag_area_highlight_in_editor = true
+split_offset = 150
 
-[node name="HSlider" type="HSlider" parent="CanvasLayer/MenuContainer/Settings/TabContainer/General/ScrollContainer/VBoxContainer/Slider" unique_id=1684510043]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 411.0
-offset_right = -88.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Number" type="Panel" parent="CanvasLayer/MenuContainer/Settings/TabContainer/General/ScrollContainer/VBoxContainer" unique_id=1584595614]
-custom_minimum_size = Vector2(0, 50)
+[node name="HostContainer" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer" unique_id=1793361704]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/MenuContainer/Settings/TabContainer/General/ScrollContainer/VBoxContainer/Number" unique_id=947285105]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer" unique_id=528860522]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer" unique_id=270509869]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ButtonField" type="Panel" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=176103944]
+custom_minimum_size = Vector2(0, 80)
+custom_maximum_size = Vector2(-1, 80)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/ButtonField" unique_id=981582478]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 17.0
-offset_right = -411.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -20.0
+offset_right = 4.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Input: "
+text = "Host"
+
+[node name="Name" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=1168324075]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+text = "*Server Name:"
 vertical_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="CanvasLayer/MenuContainer/Settings/TabContainer/General/ScrollContainer/VBoxContainer/Number" unique_id=2094741713]
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/Name" unique_id=1949650995]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 11
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 696.0
-offset_top = 8.0
-offset_right = -32.0
-offset_bottom = -9.0
-grow_horizontal = 2
+offset_left = -377.0
+grow_horizontal = 0
 grow_vertical = 2
-placeholder_text = "0-9999"
+placeholder_text = "Server name... (Required)"
+
+[node name="Port" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=949415829]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+text = "*Port:"
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/Port" unique_id=555878268]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -98.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "4086"
+placeholder_text = "1024 - 65535"
 alignment = 1
+
+[node name="MaxPlayer" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=1293243490]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+text = "*Max:"
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/MaxPlayer" unique_id=2094953973]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -98.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "4"
+placeholder_text = "2 - 6"
+alignment = 1
+
+[node name="Password" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=1050435221]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+text = "Password"
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/Password" unique_id=227576564]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -377.0
+grow_horizontal = 0
+grow_vertical = 2
+placeholder_text = "67676767..."
+emoji_menu_enabled = false
 clear_button_enabled = true
+secret = true
 
-[node name="DropDown" type="Panel" parent="CanvasLayer/MenuContainer/Settings/TabContainer/General/ScrollContainer/VBoxContainer" unique_id=90403931]
+[node name="Difficulty" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=1343038984]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+text = "Difficulty"
+vertical_alignment = 1
+
+[node name="LineEdit" type="OptionButton" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/Difficulty" unique_id=188694071]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -377.0
+grow_horizontal = 0
+grow_vertical = 2
+selected = 1
+item_count = 4
+popup/item_0/text = "Easy"
+popup/item_0/id = 0
+popup/item_1/text = "Normal"
+popup/item_1/id = 1
+popup/item_2/text = "Erected"
+popup/item_2/id = 2
+popup/item_3/text = "LORD OF VERITY"
+popup/item_3/id = 3
+
+[node name="JoinContainer" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer" unique_id=1683434221]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/MenuContainer/Settings/TabContainer/General/ScrollContainer/VBoxContainer/DropDown" unique_id=1174085177]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/JoinContainer" unique_id=1651829512]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer" unique_id=762033093]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ButtonField" type="Panel" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer" unique_id=1284161777]
+custom_minimum_size = Vector2(0, 10)
+custom_maximum_size = Vector2(-1, 80)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/ButtonField" unique_id=1991956457]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 17.0
-offset_right = -411.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -237.0
+offset_top = -20.0
+offset_right = -3.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Input: "
+text = "Join"
+
+[node name="Name" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer" unique_id=77592935]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+text = "Server Name:"
 vertical_alignment = 1
 
-[node name="LineEdit" type="OptionButton" parent="CanvasLayer/MenuContainer/Settings/TabContainer/General/ScrollContainer/VBoxContainer/DropDown" unique_id=226250960]
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/Name" unique_id=529572885]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 11
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 467.0
-offset_top = 8.0
-offset_right = -32.0
-offset_bottom = -9.0
-grow_horizontal = 2
+offset_left = -377.0
+grow_horizontal = 0
 grow_vertical = 2
+placeholder_text = "Server Name"
+editable = false
+flat = true
 
-[node name="KeyMap" type="Panel" parent="CanvasLayer/MenuContainer/Settings/TabContainer/General/ScrollContainer/VBoxContainer" unique_id=681614873]
-custom_minimum_size = Vector2(0, 50)
+[node name="Port" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer" unique_id=2001587513]
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/MenuContainer/Settings/TabContainer/General/ScrollContainer/VBoxContainer/KeyMap" unique_id=1865319450]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 17.0
-offset_right = -411.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Input: "
+text = "Port:"
 vertical_alignment = 1
 
-[node name="LineEdit" type="Button" parent="CanvasLayer/MenuContainer/Settings/TabContainer/General/ScrollContainer/VBoxContainer/KeyMap" unique_id=633416716]
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/Port" unique_id=481675895]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 11
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 696.0
-offset_top = 8.0
-offset_right = -32.0
-offset_bottom = -9.0
-grow_horizontal = 2
+offset_left = -377.0
+grow_horizontal = 0
 grow_vertical = 2
-text = "Input"
+placeholder_text = "Port"
+editable = false
+flat = true
 
-[node name="Toggle" type="Panel" parent="CanvasLayer/MenuContainer/Settings/TabContainer/General/ScrollContainer/VBoxContainer" unique_id=1656108032]
-custom_minimum_size = Vector2(0, 50)
+[node name="Password" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer" unique_id=544762400]
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/MenuContainer/Settings/TabContainer/General/ScrollContainer/VBoxContainer/Toggle" unique_id=1548495941]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 17.0
-offset_right = -411.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Input: "
+text = "Password"
 vertical_alignment = 1
 
-[node name="LineEdit" type="CheckButton" parent="CanvasLayer/MenuContainer/Settings/TabContainer/General/ScrollContainer/VBoxContainer/Toggle" unique_id=1347199893]
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/Password" unique_id=1703687515]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 11
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 739.0
-offset_right = -38.0
-offset_bottom = -1.0
-grow_horizontal = 2
+offset_left = -377.0
+grow_horizontal = 0
 grow_vertical = 2
-
-[node name="Graphic" type="MarginContainer" parent="CanvasLayer/MenuContainer/Settings/TabContainer" unique_id=24118987]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 1
-
-[node name="Audio" type="MarginContainer" parent="CanvasLayer/MenuContainer/Settings/TabContainer" unique_id=475715037]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 2
-
-[node name="Input" type="MarginContainer" parent="CanvasLayer/MenuContainer/Settings/TabContainer" unique_id=1218227050]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 3
+placeholder_text = "67676767..."
+emoji_menu_enabled = false
+clear_button_enabled = true
+secret = true
 
 [node name="verity" type="Node3D" parent="." unique_id=366258689]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7217052, 1.109234, 0.093393326)
@@ -356,3 +565,6 @@ mesh = ExtResource("1_ekxnf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="verity/Sphere-rigid" unique_id=1313224929]
 shape = SubResource("ConvexPolygonShape3D_g5j4q")
+
+[editable path="CanvasLayer/BackgroundControl/MenuContainer/Settings/SettingsContainer/general"]
+[editable path="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HSplitContainer/ServerBrowser/ScrollContainer/VBoxContainer/ServerButtonTemplate"]

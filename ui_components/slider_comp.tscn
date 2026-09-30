@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://ccwr1r7ybd6tc"]
+
+[ext_resource type="Script" uid="uid://dafu6aen63mhg" path="res://scripts/ui_components/SliderComp.cs" id="1_cjfhh"]
+
+[node name="SliderComp" type="Panel" unique_id=2022436144 node_paths=PackedStringArray("slider", "valueLabel", "Label")]
+custom_minimum_size = Vector2(0, 50)
+script = ExtResource("1_cjfhh")
+slider = NodePath("HSlider")
+valueLabel = NodePath("ValueLabel")
+Label = NodePath("Label")
+
+[node name="Label" type="Label" parent="." unique_id=683845124]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_right = -411.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Input: "
+vertical_alignment = 1
+
+[node name="ValueLabel" type="LineEdit" parent="." unique_id=778794502]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -102.5
+offset_top = -15.5
+offset_right = -34.0
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "0"
+alignment = 1
+
+[node name="HSlider" type="HSlider" parent="." unique_id=24000769]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -469.0
+offset_top = -8.0
+offset_right = -129.0
+offset_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 2
