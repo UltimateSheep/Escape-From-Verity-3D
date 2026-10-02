@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://c26ma8u6e3asa" path="res://scripts/Client/Player.cs" id="1_3rerk"]
 [ext_resource type="PackedScene" uid="uid://bkb15ueyn5d11" path="res://models/characters/girl1/Ch13_nonPBR.fbx" id="1_f46kd"]
 [ext_resource type="Animation" uid="uid://bjfbswckdwts1" path="res://models/characters/girl1/anim/idle.anim" id="2_3rerk"]
-[ext_resource type="Animation" uid="uid://cjm5rff5wnf78" path="res://models/characters/girl1/anim/jump.anim" id="3_i825w"]
+[ext_resource type="Animation" uid="uid://bbthhqhavt4kv" path="res://models/characters/girl1/anim/jump.anim" id="3_i825w"]
 [ext_resource type="Animation" uid="uid://c24v2qwkw15j7" path="res://models/characters/girl1/anim/run.anim" id="4_3rfka"]
 [ext_resource type="Animation" uid="uid://ibsuk3cwa70n" path="res://models/characters/girl1/anim/walk.anim" id="5_i8sra"]
-[ext_resource type="Animation" uid="uid://47k1vyvlbd23" path="res://models/characters/girl1/anim/run_left.anim" id="6_4vq5b"]
-[ext_resource type="Animation" uid="uid://j1jc3x5e37lu" path="res://models/characters/girl1/anim/run_right.anim" id="7_3nfmf"]
-[ext_resource type="Animation" uid="uid://8imettmm0ekq" path="res://models/characters/girl1/anim/walk_left.anim" id="9_42cpl"]
-[ext_resource type="Animation" uid="uid://vmkbs4c4w3rl" path="res://models/characters/girl1/anim/walk_right.anim" id="10_vqq2l"]
+[ext_resource type="Animation" uid="uid://ch2fjwemjb0ke" path="res://models/characters/girl1/anim/run_left.anim" id="6_4vq5b"]
+[ext_resource type="Animation" uid="uid://cxc0ghvv2043m" path="res://models/characters/girl1/anim/run_right.anim" id="7_3nfmf"]
+[ext_resource type="Animation" uid="uid://ccomsedw0o4l" path="res://models/characters/girl1/anim/walk_left.anim" id="9_42cpl"]
+[ext_resource type="Animation" uid="uid://swagx5ukpd5n" path="res://models/characters/girl1/anim/walk_right.anim" id="10_vqq2l"]
 
 [sub_resource type="TubeTrailMesh" id="TubeTrailMesh_qseaw"]
 
@@ -158,75 +158,96 @@ node_connections = [&"output", 0, &"TimeScale", &"OneShot", 0, &"Locomotion", &"
 radius = 0.3
 height = 1.7451172
 
-[node name="Player" type="CharacterBody3D" unique_id=807430478 node_paths=PackedStringArray("CamMarker", "Camera", "cameraAttach", "animationTree")]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4vq5b"]
+properties/0/path = NodePath("Ch13_nonPBR/AnimationPlayer:current_animation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("CamMarker:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Ch13_nonPBR/Skeleton3D/ToolIK:active")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("Ch13_nonPBR/AnimationTree:parameters/Locomotion/blend_position")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D" unique_id=807430478 node_paths=PackedStringArray("CamMarker", "Camera", "cameraMarker", "animationTree")]
+collision_layer = 2
 script = ExtResource("1_3rerk")
 CamMarker = NodePath("CamMarker")
 Camera = NodePath("Camera")
-cameraAttach = NodePath("Ch13_nonPBR/Skeleton3D/CameraAttachment")
-CameraOffset = Vector3(-0.018776543, 1.6073512, 0.08758785)
+cameraMarker = NodePath("Ch13_nonPBR/Skeleton3D/CameraAttachment/CameraMarker")
+CameraOffset = Vector3(0, 0.088, 0.1)
 LocomotionBlend = "parameters/Locomotion/blend_position"
 animationTree = NodePath("Ch13_nonPBR/AnimationTree")
+mouse_sensitivity = 0.005
 
 [node name="Camera" type="Camera3D" parent="." unique_id=2003359528]
 transform = Transform3D(-0.9995823, 0.017042471, -0.023341736, 0.019357825, 0.99450773, -0.102857344, 0.021460593, -0.10326623, -0.9944222, -0.018776543, 1.6073512, 0.08758785)
 doppler_tracking = 2
-current = true
 
 [node name="Ch13_nonPBR" parent="." unique_id=54108748 instance=ExtResource("1_f46kd")]
 
 [node name="Skeleton3D" parent="Ch13_nonPBR" index="0" unique_id=1795552675]
-bones/0/position = Vector3(0.004573753, 0.97212946, 0.0059080627)
-bones/0/rotation = Quaternion(-0.0074901404, 0.011875465, -0.042791188, 0.9989854)
-bones/1/rotation = Quaternion(-0.019209998, -0.011891314, 0.020863133, 0.9995271)
-bones/2/rotation = Quaternion(0.0030396548, -0.0014504448, 0.05184106, 0.9986497)
-bones/3/rotation = Quaternion(0.0030722274, 0.0034821548, 0.05130829, 0.9986721)
-bones/4/rotation = Quaternion(0.036016475, -0.0018936292, -0.018659273, 0.99917525)
-bones/5/rotation = Quaternion(0.014378454, 0.006015247, -0.06997546, 0.997427)
-bones/7/rotation = Quaternion(-0.6510735, -0.38333294, 0.49464086, -0.42952263)
-bones/8/rotation = Quaternion(0.57327205, 0.008770164, -0.07571715, 0.815812)
+bones/0/position = Vector3(0.0054927184, 0.9721985, 0.003141852)
+bones/0/rotation = Quaternion(-0.00697329, 0.013033907, -0.043247458, 0.99895513)
+bones/1/rotation = Quaternion(-0.020293837, -0.012428505, 0.020226553, 0.99951226)
+bones/2/rotation = Quaternion(-0.00022970073, -0.0019176584, 0.051708255, 0.99866045)
+bones/3/rotation = Quaternion(-0.00022581496, 0.0033098587, 0.051170524, 0.9986845)
+bones/4/rotation = Quaternion(0.036333412, -0.0019199857, -0.018778555, 0.9991614)
+bones/5/rotation = Quaternion(0.013254068, 0.004983192, -0.07056065, 0.997407)
+bones/7/rotation = Quaternion(-0.6415739, -0.39877006, 0.48252717, -0.4433206)
+bones/8/rotation = Quaternion(0.59577245, 0.0096673975, -0.0767166, 0.79942244)
 bones/9/rotation = Quaternion(0.0056127617, -0.003688749, 0.12613262, 0.99199075)
-bones/10/rotation = Quaternion(0.104899004, -0.2090511, -0.061404992, 0.97032124)
-bones/11/rotation = Quaternion(0.12102034, 0.25679097, 0.16425191, 0.9446872)
-bones/12/rotation = Quaternion(0.029997889, -0.13695371, -0.14621332, 0.9792679)
-bones/13/rotation = Quaternion(0.0040519615, -0.03239489, -0.017613882, 0.99931175)
-bones/15/rotation = Quaternion(0.073586926, 0.002573352, 0.008759316, 0.99724704)
-bones/16/rotation = Quaternion(0.1917112, -0.0012182943, -0.026606463, 0.98109)
-bones/17/rotation = Quaternion(0.10211661, -0.00030692774, -0.0086596245, 0.99473476)
-bones/19/rotation = Quaternion(0.14218795, 0.00336646, -0.027621986, 0.98944855)
-bones/20/rotation = Quaternion(0.29994717, -0.0024585754, -0.036656316, 0.9532482)
-bones/21/rotation = Quaternion(0.12027838, 0.00013306692, -0.0140781915, 0.99264044)
-bones/23/rotation = Quaternion(0.23486906, 0.0067648045, -0.056269918, 0.9703734)
-bones/24/rotation = Quaternion(0.3561936, 0.002428675, -0.038540248, 0.9336139)
-bones/25/rotation = Quaternion(0.18169965, 0.002074604, -0.018583482, 0.9831763)
-bones/27/rotation = Quaternion(0.31239396, 0.014537239, -0.10087086, 0.9444701)
-bones/28/rotation = Quaternion(0.40016595, -0.0027676634, -0.037052702, 0.91568923)
-bones/29/rotation = Quaternion(0.19184288, -0.00042914983, -0.026378259, 0.98107105)
-bones/31/rotation = Quaternion(0.60455734, -0.4294031, 0.5459761, 0.38991478)
-bones/32/rotation = Quaternion(0.454276, -0.0064449194, 0.0089722285, 0.89079255)
-bones/33/rotation = Quaternion(0.0067176344, 0.0035941144, -0.15374014, 0.98808205)
-bones/34/rotation = Quaternion(0.109682135, 0.075961635, 0.11898476, 0.9838915)
-bones/35/rotation = Quaternion(0.12005703, -0.2552175, -0.16434702, 0.94521976)
-bones/36/rotation = Quaternion(0.029532526, 0.13775969, 0.16545592, 0.97610164)
-bones/37/rotation = Quaternion(0.008229711, 0.035031654, -0.021316461, 0.999125)
-bones/39/rotation = Quaternion(0.0694982, -0.0024147753, -0.007433766, 0.99755144)
-bones/40/rotation = Quaternion(0.19161421, 0.0012054216, 0.028434105, 0.98105764)
-bones/41/rotation = Quaternion(0.13394286, 0.0018697367, 0.0030796987, 0.9909826)
-bones/43/rotation = Quaternion(0.13797075, -0.0019984357, 0.029472752, 0.9899957)
-bones/44/rotation = Quaternion(0.29974002, 0.0024653373, 0.039067294, 0.9532175)
-bones/45/rotation = Quaternion(0.15159003, 5.434402e-05, 0.01633966, 0.9883084)
-bones/47/rotation = Quaternion(0.23074478, -0.00746231, 0.05816706, 0.97124547)
-bones/48/rotation = Quaternion(0.35613254, -0.0024375885, 0.03927175, 0.9336067)
-bones/49/rotation = Quaternion(0.16868022, 0.0013954701, 0.0013914768, 0.9856689)
-bones/51/rotation = Quaternion(0.30795527, -0.01223419, 0.10331911, 0.9456951)
-bones/52/rotation = Quaternion(0.39993632, 0.0027995657, 0.040629856, 0.9156377)
-bones/53/rotation = Quaternion(0.20558801, 0.006981853, 0.003116986, 0.97860885)
-bones/55/rotation = Quaternion(0.11469907, 0.14233367, 0.9762364, -0.11639546)
-bones/56/rotation = Quaternion(-0.21872158, -0.07787968, 0.04057908, 0.9718277)
-bones/57/rotation = Quaternion(0.53569317, -0.07234814, -0.04232051, 0.8402427)
+bones/10/rotation = Quaternion(0.10458341, -0.21129169, -0.062484708, 0.96980095)
+bones/11/rotation = Quaternion(0.12743255, 0.25494912, 0.18219717, 0.9410452)
+bones/12/rotation = Quaternion(0.028881535, -0.1351102, -0.12709711, 0.9822207)
+bones/13/rotation = Quaternion(0.005803858, -0.029663803, 0.0016059736, 0.9995419)
+bones/15/rotation = Quaternion(0.07106174, 0.0025350216, 0.009018641, 0.99742794)
+bones/16/rotation = Quaternion(0.18922533, -0.0012001442, -0.026361747, 0.9815791)
+bones/17/rotation = Quaternion(0.09959691, -0.00030378922, -0.00840738, 0.9949923)
+bones/19/rotation = Quaternion(0.13968241, 0.0033246353, -0.027377734, 0.9898123)
+bones/20/rotation = Quaternion(0.29752752, -0.0024362158, -0.03642449, 0.954015)
+bones/21/rotation = Quaternion(0.117763296, 0.000131236, -0.013832825, 0.99294543)
+bones/23/rotation = Quaternion(0.21606383, 0.006057092, -0.05439716, 0.974844)
+bones/24/rotation = Quaternion(0.3379689, 0.0023057936, -0.036706593, 0.94043833)
+bones/25/rotation = Quaternion(0.16262968, 0.0018948879, -0.016654609, 0.9865449)
+bones/27/rotation = Quaternion(0.2940314, 0.015877923, -0.098771125, 0.950546)
+bones/28/rotation = Quaternion(0.38234922, -0.0026450525, -0.0352787, 0.92334044)
+bones/29/rotation = Quaternion(0.17276882, -0.00039437195, -0.024525402, 0.984657)
+bones/31/rotation = Quaternion(0.5962987, -0.44551995, 0.5340828, 0.40086842)
+bones/32/rotation = Quaternion(0.47491196, -0.0056155645, 0.010199702, 0.87995625)
+bones/33/rotation = Quaternion(0.0067299022, 0.0035939892, -0.1540206, 0.98803824)
+bones/34/rotation = Quaternion(0.10990666, 0.07532156, 0.118713476, 0.9839484)
+bones/35/rotation = Quaternion(0.12655897, -0.2534255, -0.18222252, 0.9415696)
+bones/36/rotation = Quaternion(0.028551925, 0.1359222, 0.14641272, 0.979425)
+bones/37/rotation = Quaternion(0.010234166, 0.0322328, -0.040505193, 0.9986069)
+bones/39/rotation = Quaternion(0.06697303, -0.0023830857, -0.007702298, 0.9977222)
+bones/40/rotation = Quaternion(0.18912952, 0.0011872578, 0.028180804, 0.981547)
+bones/41/rotation = Quaternion(0.13143396, 0.0018462869, 0.002814718, 0.99131924)
+bones/43/rotation = Quaternion(0.1354645, -0.00196241, 0.029217282, 0.9903494)
+bones/44/rotation = Quaternion(0.29732183, 0.0024428887, 0.038822506, 0.9539846)
+bones/45/rotation = Quaternion(0.14908744, 5.384486e-05, 0.01608082, 0.98869324)
+bones/47/rotation = Quaternion(0.21191522, -0.006802825, 0.056255016, 0.975644)
+bones/48/rotation = Quaternion(0.33792263, -0.0023141145, 0.037427653, 0.94042665)
+bones/49/rotation = Quaternion(0.14954369, 0.0012745422, -0.0006239229, 0.9887541)
+bones/51/rotation = Quaternion(0.2896502, -0.013612385, 0.101145715, 0.95167595)
+bones/52/rotation = Quaternion(0.38211307, 0.0026750169, 0.038754642, 0.9232988)
+bones/53/rotation = Quaternion(0.18661125, 0.006466561, 0.0010311205, 0.98241204)
+bones/55/rotation = Quaternion(0.11364572, 0.14394313, 0.9761559, -0.1161245)
+bones/56/rotation = Quaternion(-0.21759145, -0.07766997, 0.040848475, 0.97208685)
+bones/57/rotation = Quaternion(0.5340538, -0.072306216, -0.042262197, 0.841292)
 bones/58/rotation = Quaternion(0.26460856, -0.021653626, 0.0059411535, 0.9640945)
-bones/60/rotation = Quaternion(-0.03533893, -0.028956832, 0.99403197, -0.099061996)
-bones/61/rotation = Quaternion(-0.04280767, 0.042022206, 0.022689778, 0.9979413)
-bones/62/rotation = Quaternion(0.5436886, -0.03870821, -0.101226635, 0.8322606)
+bones/60/rotation = Quaternion(-0.03514332, -0.023890426, 0.9940808, -0.0999887)
+bones/61/rotation = Quaternion(-0.04610549, 0.04408004, 0.021538984, 0.9977311)
+bones/62/rotation = Quaternion(0.54462874, -0.03817355, -0.100301474, 0.83178246)
 bones/63/rotation = Quaternion(0.2681503, 0.021839507, -0.006072894, 0.96311045)
 
 [node name="SpineLookat" type="LookAtModifier3D" parent="Ch13_nonPBR/Skeleton3D" index="6" unique_id=183732008]
@@ -300,7 +321,7 @@ settings/0/disperse_mode = 0
 settings/0/joint_count = 3
 
 [node name="CameraAttachment" type="BoneAttachment3D" parent="Ch13_nonPBR/Skeleton3D" index="11" unique_id=531981943]
-transform = Transform3D(0.9994308, 0.0139346495, 0.03072288, -0.017059535, 0.9944393, 0.103919804, -0.02910396, -0.10438478, 0.99411094, -0.023582365, 1.5202329, -0.013063263)
+transform = Transform3D(0.99944884, 0.01785749, 0.027986616, -0.020649733, 0.9944788, 0.10288608, -0.0259948, -0.10340729, 0.9942995, -0.021644551, 1.520429, -0.018980902)
 bone_name = "mixamorig_Head"
 bone_idx = 5
 
@@ -310,8 +331,11 @@ transform = Transform3D(0.9993568, -0.019071313, -0.030372877, 0.015837733, 0.99
 [node name="ToolNode" type="Marker3D" parent="Ch13_nonPBR/Skeleton3D/CameraAttachment" unique_id=2049452901]
 transform = Transform3D(-0.21328282, -0.21676826, 0.7984869, -0.20348746, 0.9499779, 0.047519386, -0.7576681, -0.46684694, -1.4037917, -0.1645792, -0.08807278, 0.39425477)
 
+[node name="CameraMarker" type="Marker3D" parent="Ch13_nonPBR/Skeleton3D/CameraAttachment" unique_id=2058757635]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.731149e-11, 0.09090493, 0.12265785)
+
 [node name="ToolAttachment" type="BoneAttachment3D" parent="Ch13_nonPBR/Skeleton3D" index="12" unique_id=1091241099]
-transform = Transform3D(-0.21014717, 0.07052694, 0.9751226, 0.18350962, 0.9825128, -0.031513467, -0.96029276, 0.17232189, -0.21941452, -0.17707601, 1.4764013, 0.3926248)
+transform = Transform3D(-0.21476933, 0.07186276, 0.9740174, 0.184059, 0.98239756, -0.031896293, -0.9591644, 0.17242634, -0.22421588, -0.17659596, 1.4768409, 0.38687652)
 bone_name = "mixamorig_RightHand"
 bone_idx = 34
 
@@ -346,5 +370,8 @@ transform = Transform3D(1, 0, 0, 0, 0.99999976, 0, 0, 0, 0.9999997, 0, 1.6, 0)
 
 [node name="Marker3D" type="Marker3D" parent="CamMarker" unique_id=1286569673]
 transform = Transform3D(1, -4.656613e-10, 0, 0, 1, -5.9604645e-08, 0, 7.4505806e-08, 0.9999999, 0, 0, 0.75)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=632086657]
+replication_config = SubResource("SceneReplicationConfig_4vq5b")
 
 [editable path="Ch13_nonPBR"]

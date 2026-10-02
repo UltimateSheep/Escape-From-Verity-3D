@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GlobalMultiplayer="*uid://d4e515plxgjt0"
+SceneManager="*uid://i6uwtv4lr28y"
 
 [display]
 

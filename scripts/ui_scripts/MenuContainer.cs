@@ -6,6 +6,8 @@ public partial class MenuContainer : TabContainer
 	[Export]
 	private Button[] mainButtons = [];
 	[Export]
+	private Button startButton;
+	[Export]
 	private Button quitButton;
 
     public override void _Ready()
@@ -23,6 +25,11 @@ public partial class MenuContainer : TabContainer
 		quitButton.Pressed += () =>
 		{
 			GetTree().Quit();	
+		};
+
+		startButton.Pressed += () =>
+		{
+			SceneManager.Instance.CallDeferred(SceneManager.MethodName.StartGame, true);
 		};
     }
 

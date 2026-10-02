@@ -9,7 +9,7 @@ public partial class Player : CharacterBody3D
 	[Export]
 	public Camera3D Camera;
 	[Export]
-	public BoneAttachment3D cameraAttach;
+	public Marker3D cameraMarker;
 	[Export]
 	public Vector3 CameraOffset = new();
 
@@ -17,6 +17,8 @@ public partial class Player : CharacterBody3D
 	public string LocomotionBlend;
 	[Export]
 	public AnimationTree animationTree;
+
+	public bool IsSingleplayer = false;
 
 	public const float Speed = 5.0f;
 	public const float JumpVelocity = 4.5f;
@@ -30,13 +32,40 @@ public partial class Player : CharacterBody3D
 	private Vector2 current_input = new();
 	private Vector2 current_velocity = new();
 
+    public override void _EnterTree()
+    {
+		IsSingleplayer = Name == "0";
+
+        _ = int.TryParse(Name, out int result);
+
+		if (result.GetType() == typeof(int))
+		{
+        	SetMultiplayerAuthority(result);
+    	} else
+		{
+			QueueFree();
+		}
+
+		if (IsMultiplayerAuthority() ||  IsSingleplayer)
+		{
+			GetNode<Camera3D>("Camera").Current = true;
+		}
+	}
+
+
     public override void _Ready()
     {
+		if (!IsSingleplayer && !IsMultiplayerAuthority())
+			return;
+
         Input.MouseMode = Input.MouseModeEnum.Captured;
     }
 
     public override void _UnhandledInput(InputEvent @event)
     {
+		if (!IsSingleplayer && !IsMultiplayerAuthority())
+			return;
+
 		if (Input.IsActionJustPressed("pause"))
 		{
 			GetTree().Quit();
@@ -53,7 +82,10 @@ public partial class Player : CharacterBody3D
 
     public override void _Process(double delta)
     {
-		Camera.Position = cameraAttach.Position + CameraOffset;
+		if (!IsSingleplayer && !IsMultiplayerAuthority())
+			return;
+
+		Camera.GlobalPosition = cameraMarker.GlobalPosition;
 		Camera.Rotation = new Vector3(-CamMarker.Rotation.X * 1.15f, Deg2Rad(-180), 0);
 
         Vector2 new_delta = current_input - current_velocity;
@@ -68,6 +100,12 @@ public partial class Player : CharacterBody3D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		// Server Code
+
+		// Client Code
+		if (!IsSingleplayer && !IsMultiplayerAuthority())
+			return;
+
 		Vector3 velocity = Velocity;
 
 		// Add the gravity.
