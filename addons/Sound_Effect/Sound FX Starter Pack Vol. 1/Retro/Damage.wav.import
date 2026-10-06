@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bvci14k7u5v5d"
+path="res://.godot/imported/Damage.wav-f7e1914085953b452ba4d1167127dda0.sample"
+
+[deps]
+
+source_file="res://addons/Sound_Effect/Sound FX Starter Pack Vol. 1/Retro/Damage.wav"
+dest_files=["res://.godot/imported/Damage.wav-f7e1914085953b452ba4d1167127dda0.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://kon3r6kv4nbq"
+path="res://.godot/imported/Success.wav-2e9b6b47d16ddcbdf3b7e9b890fd22c2.sample"
+
+[deps]
+
+source_file="res://addons/Sound_Effect/Sound FX Starter Pack Vol. 1/Jingles & Stingers/Success.wav"
+dest_files=["res://.godot/imported/Success.wav-2e9b6b47d16ddcbdf3b7e9b890fd22c2.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

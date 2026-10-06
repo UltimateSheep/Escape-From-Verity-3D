@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dldtioi4ccn3o" path="res://scripts/ui_scripts/MenuContainer.cs" id="3_oa1go"]
 [ext_resource type="PackedScene" uid="uid://r3g2wrgl17j0" path="res://ui_components/settings_template.tscn" id="4_8ln24"]
 [ext_resource type="Script" uid="uid://cr55alngx55xr" path="res://scripts/ui_scripts/MenuBack.cs" id="4_tbmy8"]
+[ext_resource type="Script" uid="uid://cg5y1ps7x6wua" path="res://scenes/OnlineHostUI.cs" id="7_5dd4i"]
 [ext_resource type="Script" uid="uid://c7egjmv027kmi" path="res://scripts/ui_scripts/LocalHostUI.cs" id="7_jk1qb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vue75"]
@@ -227,40 +228,342 @@ text = "Back
 script = ExtResource("4_tbmy8")
 menuContainer = NodePath("../../..")
 
-[node name="SettingsContainer" type="TabContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer" unique_id=1083680008]
+[node name="MultiplayerContainer" type="TabContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer" unique_id=1083680008]
 layout_mode = 2
-current_tab = 1
+current_tab = 0
 
-[node name="Online" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer" unique_id=1207054799]
-visible = false
+[node name="Online" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer" unique_id=1207054799 node_paths=PackedStringArray("RefreshTimer", "RoomContainer", "MainOnline", "ConnectionError", "RetryButton", "RetryTimeout", "Host_PlayerName", "Host_Button", "Host_ErrorField", "Host_RoomName", "Host_MaxPlayer", "Host_Password", "Join_PlayerName", "Join_Button", "Join_ErrorField", "Join_Password", "Join_Container")]
+unique_name_in_owner = true
 layout_mode = 2
+script = ExtResource("7_5dd4i")
+RefreshTimer = NodePath("RefreshTimer")
+RoomContainer = NodePath("Panel/MarginContainer/MainOnline/RoomContainer/VBoxContainer")
+RoomTemplatePath = "res://ui_components/room_template.tscn"
+MainOnline = NodePath("Panel/MarginContainer/MainOnline")
+ConnectionError = NodePath("Panel/MarginContainer/ConnectionError")
+RetryButton = NodePath("Panel/MarginContainer/ConnectionError/Retry")
+RetryTimeout = NodePath("RetryTimeout")
+Host_PlayerName = NodePath("Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/PlayerName/LineEdit")
+Host_Button = NodePath("Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/ButtonField/Button")
+Host_ErrorField = NodePath("Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/ButtonField/ErrorField")
+Host_RoomName = NodePath("Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/RoomName/LineEdit")
+Host_MaxPlayer = NodePath("Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/MaxPlayer/LineEdit")
+Host_Password = NodePath("Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/Password/LineEdit")
+Join_PlayerName = NodePath("Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/PlayerName/LineEdit")
+Join_Button = NodePath("Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/ButtonField/Button")
+Join_ErrorField = NodePath("Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/ButtonField/ErrorField")
+Join_Password = NodePath("Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/Password/LineEdit")
+Join_Container = NodePath("Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer")
 metadata/_tab_index = 0
 
-[node name="Panel" type="Panel" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Online" unique_id=1650784291]
+[node name="Panel" type="Panel" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online" unique_id=1650784291]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Online/Panel" unique_id=1971526760]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel" unique_id=208155594]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -433.5
-offset_top = -11.5
-offset_right = 433.5
-offset_bottom = 11.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Sorry, no dedicated server is available and implemented right now. 
-Only LAN connection is supported as of 30/09/26.
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
-If you want to play multiplayer with your friends: You can use 3rd party software like
-Hamachi, RadminVPN, ZeroTier etc."
-horizontal_alignment = 1
+[node name="MainOnline" type="HBoxContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer" unique_id=853690080]
+layout_mode = 2
+
+[node name="RoomContainer" type="ScrollContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline" unique_id=1494141228]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/RoomContainer" unique_id=1984076997]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HostAndInfo" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline" unique_id=337948895]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo" unique_id=1725961792]
+layout_mode = 2
+split_offsets = PackedInt32Array(150)
+drag_area_highlight_in_editor = true
+split_offset = 150
+
+[node name="HostContainer" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer" unique_id=1287768184]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer" unique_id=1782879645]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer" unique_id=407998028]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ButtonField" type="Panel" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=17134027]
+custom_minimum_size = Vector2(0, 80)
+custom_maximum_size = Vector2(-1, 80)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/ButtonField" unique_id=1536729571]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 11.0
+offset_top = -20.0
+offset_right = 245.0
+offset_bottom = 20.0
+grow_vertical = 2
+text = "Click to host"
+
+[node name="ErrorField" type="TextEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/ButtonField" unique_id=1195670167]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 253.25446
+offset_top = 11.293335
+offset_right = -9.759155
+offset_bottom = -9.679993
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.7791187, 0.1630232, 0.07509559, 1)
+theme_override_colors/font_readonly_color = Color(0.78039217, 0.16470589, 0.07450981, 1)
+editable = false
+wrap_mode = 1
+indent_wrapped_lines = true
+virtual_keyboard_show_on_focus = false
+scroll_smooth = true
+
+[node name="PlayerName" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=1608567407]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+text = "*Display Name:"
 vertical_alignment = 1
 
-[node name="Local" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer" unique_id=325150283 node_paths=PackedStringArray("HostButton", "HostErrorEdit", "PortEdit", "MaxPlayerEdit", "DifficultyEdit", "JoinButton", "JoinErrorEdit", "JoinAddressEdit", "JoinPortEdit")]
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/PlayerName" unique_id=1796396193]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 271.7083
+offset_top = -16.5
+offset_right = -14.3749695
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Verity"
+placeholder_text = "...(required)"
+max_length = 10
+
+[node name="RoomName" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=542358460]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+text = "*Room Name:"
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/RoomName" unique_id=348397049]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 271.7083
+offset_top = -16.5
+offset_right = -14.3749695
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "My room"
+placeholder_text = "...(required)"
+max_length = 10
+
+[node name="MaxPlayer" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=859396445]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+text = "*Max Player:"
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/MaxPlayer" unique_id=1526834264]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 402.375
+offset_top = -16.5
+offset_right = -14.375
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "4"
+placeholder_text = "2 - 4"
+alignment = 1
+
+[node name="Password" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=534848200]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+text = "Password:"
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/Password" unique_id=1361220621]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 271.7083
+offset_top = -16.5
+offset_right = -14.3749695
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Enter your password..."
+max_length = 10
+secret = true
+
+[node name="JoinContainer" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer" unique_id=1469508533]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/JoinContainer" unique_id=383843593]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer" unique_id=1447574561]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ButtonField" type="Panel" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer" unique_id=986200381]
+custom_minimum_size = Vector2(0, 80)
+custom_maximum_size = Vector2(-1, 80)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/ButtonField" unique_id=3232729]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 11.0
+offset_top = -20.0
+offset_right = 245.0
+offset_bottom = 20.0
+grow_vertical = 2
+text = "Click to Join"
+
+[node name="ErrorField" type="TextEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/ButtonField" unique_id=857248133]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 253.25446
+offset_top = 11.293335
+offset_right = -9.759155
+offset_bottom = -9.679993
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.7791187, 0.1630232, 0.07509559, 1)
+theme_override_colors/font_readonly_color = Color(0.78039217, 0.16470589, 0.07450981, 1)
+editable = false
+wrap_mode = 1
+indent_wrapped_lines = true
+virtual_keyboard_show_on_focus = false
+scroll_smooth = true
+
+[node name="PlayerName" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer" unique_id=588387723]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+text = "*Display Name:"
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/PlayerName" unique_id=1848025008]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 271.7083
+offset_top = -16.5
+offset_right = -14.3749695
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "...(required)"
+
+[node name="Password" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer" unique_id=609155711]
+visible = false
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+text = "Password:"
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/MainOnline/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/Password" unique_id=675196479]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 271.7083
+offset_top = -16.5
+offset_right = -14.3749695
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Enter your password..."
+secret = true
+
+[node name="ConnectionError" type="Panel" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer" unique_id=1279935511]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/ConnectionError" unique_id=585152502]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -192.04004
+offset_top = 86.25333
+offset_right = 192.04004
+offset_bottom = 144.74667
+grow_horizontal = 2
+text = "Cannot connect to Photon. Please try again."
+horizontal_alignment = 1
+vertical_alignment = 1
+resize_font_to_fit = true
+
+[node name="Retry" type="Button" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online/Panel/MarginContainer/ConnectionError" unique_id=943480129]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -35.54547
+offset_top = 142.0
+offset_right = 35.54547
+offset_bottom = 174.64072
+grow_horizontal = 2
+text = "Retry"
+
+[node name="RefreshTimer" type="Timer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online" unique_id=1790338170]
+wait_time = 2.0
+
+[node name="RetryTimeout" type="Timer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Online" unique_id=961673689]
+wait_time = 10.0
+one_shot = true
+
+[node name="Local" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer" unique_id=325150283 node_paths=PackedStringArray("HostButton", "HostErrorEdit", "PortEdit", "MaxPlayerEdit", "DifficultyEdit", "JoinButton", "JoinErrorEdit", "JoinAddressEdit", "JoinPortEdit")]
+visible = false
 layout_mode = 2
 script = ExtResource("7_jk1qb")
 HostButton = NodePath("MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/ButtonField/Button")
@@ -274,45 +577,46 @@ JoinAddressEdit = NodePath("MarginContainer/HostAndInfo/VSplitContainer/JoinCont
 JoinPortEdit = NodePath("MarginContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/Port/LineEdit")
 metadata/_tab_index = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local" unique_id=154632637]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local" unique_id=154632637]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="HostAndInfo" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer" unique_id=436525117]
+[node name="HostAndInfo" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer" unique_id=436525117]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo" unique_id=548297431]
+[node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo" unique_id=548297431]
 layout_mode = 2
 split_offsets = PackedInt32Array(150)
 drag_area_highlight_in_editor = true
 split_offset = 150
 
-[node name="HostContainer" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer" unique_id=1793361704]
+[node name="HostContainer" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer" unique_id=1793361704]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer" unique_id=528860522]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer" unique_id=528860522]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer" unique_id=270509869]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer" unique_id=270509869]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ButtonField" type="Panel" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=176103944]
+[node name="ButtonField" type="Panel" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=176103944]
 custom_minimum_size = Vector2(0, 80)
 custom_maximum_size = Vector2(-1, 80)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/ButtonField" unique_id=981582478]
+[node name="Button" type="Button" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/ButtonField" unique_id=981582478]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -324,7 +628,7 @@ offset_bottom = 20.0
 grow_vertical = 2
 text = "Host"
 
-[node name="ErrorField" type="TextEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/ButtonField" unique_id=929489449]
+[node name="ErrorField" type="TextEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/ButtonField" unique_id=929489449]
 layout_mode = 0
 offset_left = 277.0
 offset_top = 8.0
@@ -338,13 +642,13 @@ indent_wrapped_lines = true
 virtual_keyboard_show_on_focus = false
 scroll_smooth = true
 
-[node name="Port" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=949415829]
+[node name="Port" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=949415829]
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 text = "*Port:"
 vertical_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/Port" unique_id=555878268]
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/Port" unique_id=555878268]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -360,13 +664,13 @@ text = "8080"
 placeholder_text = "1024 - 65535"
 alignment = 1
 
-[node name="MaxPlayer" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=1293243490]
+[node name="MaxPlayer" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=1293243490]
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 text = "*Max:"
 vertical_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/MaxPlayer" unique_id=2094953973]
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/MaxPlayer" unique_id=2094953973]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -382,13 +686,13 @@ text = "4"
 placeholder_text = "2 - 6"
 alignment = 1
 
-[node name="Difficulty" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=1343038984]
+[node name="Difficulty" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer" unique_id=1343038984]
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 text = "Difficulty"
 vertical_alignment = 1
 
-[node name="LineEdit" type="OptionButton" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/Difficulty" unique_id=188694071]
+[node name="LineEdit" type="OptionButton" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/HostContainer/ScrollContainer/VBoxContainer/Difficulty" unique_id=188694071]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -411,25 +715,25 @@ popup/item_2/id = 2
 popup/item_3/text = "LORD OF VERITY"
 popup/item_3/id = 3
 
-[node name="JoinContainer" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer" unique_id=1683434221]
+[node name="JoinContainer" type="MarginContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer" unique_id=1683434221]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/JoinContainer" unique_id=1651829512]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/JoinContainer" unique_id=1651829512]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer" unique_id=762033093]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer" unique_id=762033093]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ButtonField" type="Panel" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer" unique_id=1284161777]
+[node name="ButtonField" type="Panel" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer" unique_id=1284161777]
 custom_minimum_size = Vector2(0, 80)
 custom_maximum_size = Vector2(-1, 80)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/ButtonField" unique_id=1991956457]
+[node name="Button" type="Button" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/ButtonField" unique_id=1991956457]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -441,7 +745,7 @@ offset_bottom = 23.0
 grow_vertical = 2
 text = "Join"
 
-[node name="ErrorField" type="TextEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/ButtonField" unique_id=1898815821]
+[node name="ErrorField" type="TextEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/ButtonField" unique_id=1898815821]
 layout_mode = 0
 offset_left = 277.0
 offset_top = 8.0
@@ -455,13 +759,13 @@ indent_wrapped_lines = true
 virtual_keyboard_show_on_focus = false
 scroll_smooth = true
 
-[node name="Address" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer" unique_id=1101677231]
+[node name="Address" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer" unique_id=1101677231]
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 text = "*Address:"
 vertical_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/Address" unique_id=951305270]
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/Address" unique_id=951305270]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -476,13 +780,13 @@ grow_vertical = 2
 text = "localhost"
 placeholder_text = "Enter IP Address..."
 
-[node name="Port" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer" unique_id=2001587513]
+[node name="Port" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer" unique_id=2001587513]
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 text = "*Port:"
 vertical_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/SettingsContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/Port" unique_id=481675895]
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local/MarginContainer/HostAndInfo/VSplitContainer/JoinContainer/ScrollContainer/VBoxContainer/Port" unique_id=481675895]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -496,6 +800,12 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "8080"
 placeholder_text = "1024 - 65535"
+
+[node name="Label" type="Label" parent="CanvasLayer/BackgroundControl/MenuContainer/Multiplayer/MultiplayerContainer/Local" unique_id=757061372]
+layout_mode = 2
+text = "Local Multiplayer is turned off for now. Use the Online section."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="verity" type="Node3D" parent="." unique_id=366258689]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7217052, 1.109234, 0.093393326)

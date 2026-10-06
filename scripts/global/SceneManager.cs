@@ -1,3 +1,4 @@
+using FusionGodot;
 using Godot;
 using System;
 using System.Threading;
@@ -11,61 +12,68 @@ public partial class SceneManager : Node
 
 	public Node currentScene;
 
+	public PackedScene gameScene = GD.Load<PackedScene>(gameScenePath);
+
     public override void _Ready()
     {
         Instance = this;
-
 		currentScene = GetTree().CurrentScene;
+
+		Fusion.SetSceneLoadMode(SceneLoadMode.Auto);
+		// Fusion.SceneLoadRequested += OnSceneLoadRequested;
     }
 
-	public void StartGame(bool isSingleplayer = false)
-	{
-		GlobalMultiplayer.Instance.IsInGame = true;
 
+    public void LoadGame_Singleplayer()
+	{
+		Fusion.DisconnectFromPhoton();
+
+		CallDeferred("LoadGame");
+	}
+
+	public void LoadGame_Multiplayer()
+	{
+		GetTree().CurrentScene.QueueFree();
+
+		if (Fusion.IsMasterClient())
+			Fusion.LoadScene(gameScene);
+	}
+
+	private GameManager LoadGame()
+	{
 		currentScene.Free();
 
-		var nextScene = GD.Load<PackedScene>(gameScenePath).Instantiate();
+		var newScene = gameScene.Instantiate();
 
-		currentScene = nextScene;
+		GetTree().Root.AddChild(newScene);
 
-		GetTree().Root.AddChild(currentScene);
+		GetTree().CurrentScene = newScene;
+		currentScene = newScene;
 
 		GameManager gameManager = currentScene as GameManager;
-		gameManager.GetNodeOrNull("Player")?.QueueFree();
 
-		if (isSingleplayer)
-			gameManager?.InstantiatePlayer("0", true);
+		return gameManager;
 	}
 
-	public void NetworkListen()
-	{
-		Multiplayer.PeerConnected += (id) =>
-		{
-			GD.Print($"Player {id} Joined!");
+    // private void OnSceneLoadRequested(int index, PackedScene scene)
+    // {
+	// 	currentScene.Free();
+
+    //     GameManager gameManager = scene.Instantiate() as GameManager;
 		
-			GameManager gameManager = currentScene as GameManager;
+	// 	GetTree().Root.AddChild(gameManager);
 
-			gameManager?.InstantiatePlayer(id.ToString());
-		};
-	}
+	// 	// GetTree().CurrentScene = gameManager;
+	// 	currentScene = gameManager;
 
-	public void StartGameAsHost()
-	{
-		StartGame();
-		NetworkListen();
+	// 	Player single_player = gameManager.GetNode("0") as Player;
 
-		GameManager gameManager = currentScene as GameManager;
+	// 	single_player?.Free();
 
-		gameManager.InstantiatePlayer("1");
-	}
+	// 	gameManager?.CallDeferred(GameManager.MethodName.InstantiatePlayer, Fusion.GetLocalPlayerId(), false);
 
-	public void StartGameAsClient()
-	{
-		StartGame();
-		NetworkListen();
+	// 	Fusion.NotifySceneReady(currentScene, index);
+    // }
 
-		GameManager gameManager = currentScene as GameManager;
 
-		gameManager.InstantiatePlayer(Multiplayer.GetUniqueId().ToString());
-	}
 }

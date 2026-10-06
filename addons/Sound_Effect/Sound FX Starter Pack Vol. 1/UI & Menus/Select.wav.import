@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ba6kb3svusyov"
+path="res://.godot/imported/Select.wav-7f8ee20a37668c27914332c0cb446633.sample"
+
+[deps]
+
+source_file="res://addons/Sound_Effect/Sound FX Starter Pack Vol. 1/UI & Menus/Select.wav"
+dest_files=["res://.godot/imported/Select.wav-7f8ee20a37668c27914332c0cb446633.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

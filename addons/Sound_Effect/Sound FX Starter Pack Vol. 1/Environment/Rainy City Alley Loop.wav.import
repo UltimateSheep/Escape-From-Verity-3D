@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bb5symhgi66r"
+path="res://.godot/imported/Rainy City Alley Loop.wav-1fa4890244acb9b7de6c6ca68dc3bd13.sample"
+
+[deps]
+
+source_file="res://addons/Sound_Effect/Sound FX Starter Pack Vol. 1/Environment/Rainy City Alley Loop.wav"
+dest_files=["res://.godot/imported/Rainy City Alley Loop.wav-1fa4890244acb9b7de6c6ca68dc3bd13.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

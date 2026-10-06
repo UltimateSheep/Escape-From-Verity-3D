@@ -29,7 +29,8 @@ public partial class MenuContainer : TabContainer
 
 		startButton.Pressed += () =>
 		{
-			SceneManager.Instance.CallDeferred(SceneManager.MethodName.StartGame, true);
+			// SceneManager.Instance.CallDeferred(SceneManager.MethodName.StartGame, true);
+			SceneManager.Instance.LoadGame_Singleplayer();
 		};
     }
 

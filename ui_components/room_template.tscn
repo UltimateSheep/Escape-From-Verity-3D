@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://dhmqyhdohwkic"]
+
+[ext_resource type="Script" uid="uid://b3evnwihscd2d" path="res://scripts/ui_scripts/RoomTemplate.cs" id="1_exu3g"]
+[ext_resource type="Texture2D" uid="uid://mjosjdc8ry3x" path="res://resources/lock.png" id="1_u2o01"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jk1qb"]
+bg_color = Color(0.21950114, 0.21950093, 0.21950102, 1)
+
+[node name="RoomTemplate" type="Panel" unique_id=937949694]
+custom_minimum_size = Vector2(300, 50)
+script = ExtResource("1_exu3g")
+
+[node name="Button" type="Button" parent="." unique_id=219204647]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jk1qb")
+alignment = 0
+
+[node name="RoomName" type="Label" parent="Button" unique_id=1156584527]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.45105
+offset_right = -148.1932
+grow_horizontal = 2
+grow_vertical = 2
+text = "Example room"
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Players" type="Label" parent="Button" unique_id=903856807]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 253.04489
+grow_horizontal = 2
+grow_vertical = 2
+text = "1/4"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="PasswordReq" type="TextureRect" parent="Button" unique_id=1630747138]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 222.4451
+offset_top = 15.895126
+offset_right = -27.554901
+offset_bottom = -15.704193
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_u2o01")
+expand_mode = 2
+stretch_mode = 5

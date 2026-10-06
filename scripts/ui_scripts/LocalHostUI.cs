@@ -5,8 +5,8 @@ using System.Collections.Generic;
 public partial class LocalHostUI : MarginContainer
 {
 
-private Timer JoinTimeout;
-private bool isJoining = false;
+	private Timer JoinTimeout;
+	private bool isJoining = false;
 
 #region Host Field
 	[Export, ExportCategory("Host")] private Button HostButton;
@@ -49,8 +49,8 @@ private bool isJoining = false;
 		JoinPortEdit.TextSubmitted += _ => SubmitPortFields(JoinPortEdit, JoinPortEdit.Text);
 		JoinPortEdit.FocusExited += () => SubmitPortFields(JoinPortEdit, JoinPortEdit.Text);
 
-		HostButton.Pressed += HostButton_Pressed;
-		JoinButton.Pressed += JoinButton_Pressed;
+		// HostButton.Pressed += HostButton_Pressed;
+		// JoinButton.Pressed += JoinButton_Pressed;
 	}
 
 	public override void _Process(double delta)
@@ -156,57 +156,57 @@ private bool isJoining = false;
 #endregion
 
 #region Hosting
-	private void HostButton_Pressed()
-	{
-		GlobalMultiplayer.ServerDetail detail = new()
-        {
-			Id = Guid.NewGuid().ToString(),
-			Port = short.Parse(PortEdit.Text),
-			Max_player = int.Parse(MaxPlayerEdit.Text),
-			Host_id = Multiplayer.GetUniqueId(),
-			Difficulty_level = (short)DifficultyEdit.Selected
-        };
+	// private void HostButton_Pressed()
+	// {
+	// 	GlobalMultiplayer.ServerDetail detail = new()
+    //     {
+	// 		Id = Guid.NewGuid().ToString(),
+	// 		Port = short.Parse(PortEdit.Text),
+	// 		Max_player = int.Parse(MaxPlayerEdit.Text),
+	// 		Host_id = Multiplayer.GetUniqueId(),
+	// 		Difficulty_level = (short)DifficultyEdit.Selected
+    //     };
 
-		Error e = GlobalMultiplayer.Instance.CreateServer(detail);
+	// 	Error e = GlobalMultiplayer.Instance.CreateServer(detail);
 
-		if (e != Error.Ok)
-		{
-			HostErrorEdit.Text = $"Failed to create server: {e}";
-			return;
-		}
+	// 	if (e != Error.Ok)
+	// 	{
+	// 		HostErrorEdit.Text = $"Failed to create server: {e}";
+	// 		return;
+	// 	}
 
-		SceneManager.Instance.CallDeferred(SceneManager.MethodName.StartGameAsHost);
-	}
+	// 	SceneManager.Instance.CallDeferred(SceneManager.MethodName.StartGameAsHost);
+	// }
 
 #endregion
 
 #region Joining
 
-	private void JoinButton_Pressed()
-	{
-		string address = JoinAddressEdit.Text;
-		ushort port = ushort.Parse(JoinPortEdit.Text);
+	// private void JoinButton_Pressed()
+	// {
+	// 	string address = JoinAddressEdit.Text;
+	// 	ushort port = ushort.Parse(JoinPortEdit.Text);
 
-		isJoining = true;
-		JoinButton.Disabled = true;
-		JoinErrorEdit.Text = "Joining server...";
+	// 	isJoining = true;
+	// 	JoinButton.Disabled = true;
+	// 	JoinErrorEdit.Text = "Joining server...";
 
-		Error e = GlobalMultiplayer.Instance.JoinServer(address, port);
-		switch (e)
-		{
-			case Error.Ok:
-				GD.Print($"Successfully Joined {address}:{port}!");
+	// 	Error e = GlobalMultiplayer.Instance.JoinServer(address, port);
+	// 	switch (e)
+	// 	{
+	// 		case Error.Ok:
+	// 			GD.Print($"Successfully Joined {address}:{port}!");
 
-				SceneManager.Instance.CallDeferred(SceneManager.MethodName.StartGameAsClient);
+	// 			SceneManager.Instance.CallDeferred(SceneManager.MethodName.StartGameAsClient);
 
-				return;
-			default:
-				JoinErrorEdit.Text = $"Join server failed: {e}";
-				break;
-		}
+	// 			return;
+	// 		default:
+	// 			JoinErrorEdit.Text = $"Join server failed: {e}";
+	// 			break;
+	// 	}
 
-		JoinTimeout.Start();
-	}
+	// 	JoinTimeout.Start();
+	// }
 
 #endregion
 
